@@ -5,6 +5,7 @@ import sys
 # Initializing Pygame
 pygame.init()
 # Setting constants for the game
+SCORE=5
 SCREEN_WIDTH, SCREEN_HEIGHT = 700, 450
 FPS = 60
 speed_av = 1
@@ -56,7 +57,6 @@ class Ball:
         if self.y >= SCREEN_HEIGHT - self.radius or self.y <= self.radius:
             self.speedy = -self.speedy
 
-        # Collision
         if self.x >= p2.x - self.radius - p2.width and p2.y <= self.y <= p2.y + p2.height:
             self.speedx = -self.speedx
             self.speedx -= speed_av
@@ -64,15 +64,17 @@ class Ball:
         if self.x <= p1.x + self.radius and p1.y <= self.y <= p1.y + p1.height:
             self.speedx = -self.speedx
             self.speedx += speed_av
+
+
 def draw_score(screen, player1, player2):
     font = pygame.font.Font(None, 74)
     text = font.render(f"{player1.score}:{player2.score}", True, "black", "white")
     screen.blit(text, (SCREEN_WIDTH // 2 - text.get_width() // 2, 10))
 
 def create_popup(player1, player2, screen, clock):
-    if player1.score == 7:
+    if player1.score == SCORE:
         label = gui.Label("Player 1 is the winner!")
-    elif player2.score == 7:
+    elif player2.score == SCORE:
         label = gui.Label("Player 2 is the winner!")
 
     btn_restart = gui.Button("Restart Game")
@@ -85,7 +87,7 @@ def create_popup(player1, player2, screen, clock):
     def restart_game():
         player1 = Player((0, 0, 255), 5, 160, 5, 150, 5)
         player2 = Player((255, 0, 0), 690, 160, 5, 150, 5)
-        ballik = Ball((255, 255, 0), 350, 225, 20, 2, 5)
+        ballik = Ball((255, 255, 0), 350, 225, 20, 5, 5)
         game(screen, clock, player1, player2, ballik)
 
     btn_restart.connect(gui.CLICK, restart_game)
@@ -128,12 +130,17 @@ def game(screen, clock, player1, player2, ballik):
                 player1.score += 1
                 ballik.x = SCREEN_WIDTH // 2
                 ballik.y = SCREEN_HEIGHT // 2
+                ballik.speedx = 3
+                ballik.speedy = 3
+
             elif ballik.x < 0:
                 player2.score += 1
                 ballik.x = SCREEN_WIDTH // 2
                 ballik.y = SCREEN_HEIGHT // 2
+                ballik.speedx = 3
+                ballik.speedy = 3
 
-            if player1.score == 3 or player2.score == 3:
+            if player1.score == SCORE or player2.score == SCORE:
                 create_popup(player1, player2, screen, clock)
                 return
 
@@ -151,9 +158,9 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('Ping Pong')
     clock = pygame.time.Clock()
-    player1 = Player((0, 0, 255), 5, 160, 5, 150, 5)
-    player2 = Player((255, 0, 0), 690, 160, 5, 150, 5)
-    ballik = Ball((255, 255, 0), 350, 225, 20, 2, 5)
+    player1 = Player((0, 0, 255), 5, 160, 5, 150, 10)
+    player2 = Player((255, 0, 0), 690, 160, 5, 150, 10)
+    ballik = Ball((255, 255, 0), 350, 225, 20, 3, 3)
     game(screen, clock, player1, player2, ballik)
 
 if __name__ == '__main__':
