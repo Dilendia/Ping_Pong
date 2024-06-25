@@ -1,37 +1,41 @@
-# Ping_Pong
-Game
->class Player
+:ping_pong: #**Ping_Pong**
+:EMOJI CODE: :ping_pong:
+![Скриншот 25-06-2024 114518.jpg](..%2F..%2F..%2FOneDrive%2F%D0%E0%E1%EE%F7%E8%E9%20%F1%F2%EE%EB%2F%D1%EA%F0%E8%ED%F8%EE%F2%2025-06-2024%20114518.jpg)
+
++ ***class Player***
+
+For Player controls :
+>    def move_down(self):
 > 
- keeps track of the players
->class Ball
+            if self.y <= SCREEN_HEIGHT - self.height:
 
-responsible for the movement of the ball and acceleration when batting players
+                self.y += self.speed
 
-> Functions
+>  def move_up(self):
+> 
+            if self.y >= 0:
 
- draw_score
- pygame.font.Font() - to draw the text 
- with which we display the score of the game on the screen
+                self.y -= self.speed
+
+
+ To move paddle up press 'w'
+
+ To move paddle down press 's'
+
+ To move paddle up press 'K_UP'
+
+ To move paddle down press 'K_DOWN'
+
  
-create_popup
+
++ ***class Ball***
+
+A ball that bounces off the paddles and walls 
+
+:hammer_and_wrench: create_popup
   >https://www.geeksforgeeks.org/how-to-create-a-pop-up-in-pygame-with-pgu/
 
- game 
-
-get data about the current event
-
-For example, the pygame key for the letter “A” is “K_a” then we will compare event. 
- Key with K a and if it comes to be same that means the key “A” was pressed.
-
-function call
-
- main 
-
-Calling set_mode() returns an object of type Surface, a window with the size mxn
-
-Clock object appears, which can be used to track time.
-
-the object of the player and the ball have been set their own parameters and the screen is being updated
+ 
 
 
 
